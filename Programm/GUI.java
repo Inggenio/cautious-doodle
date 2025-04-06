@@ -8,12 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-
 public class GUI {
 
 	JFrame myWindow = new JFrame("Cautious-Doodle");
 	JPanel chalkboard = new JPanel();
-
 
 	GridBagLayout gLayout = new GridBagLayout();
 	GridBagConstraints gbc = new GridBagConstraints();
@@ -22,7 +20,6 @@ public class GUI {
 	JButton closeBtn = new JButton("Close");
 	JButton nLinksBtn = new JButton("<<");
 	JButton nRechtsBtn = new JButton(">>");
-
 
 	JLabel lbl1 = new JLabel("Let's see your Images!");
 
@@ -34,8 +31,6 @@ public class GUI {
 	File[] selectedFiles;
 	int currentImageIndex = 0;
 
-
-
 	public void go(){
 
 		//Layout
@@ -46,7 +41,6 @@ public class GUI {
 		gbc.ipady = 10;
 		gbc.ipadx = 10;
 		gbc.gridheight = 1;
-
 
 		//Panel Definition
 		chalkboard.setLayout(gLayout);
@@ -103,12 +97,11 @@ public class GUI {
 		gbc.gridwidth = 1;
 		chalkboard.add(nRechtsBtn,gbc);
 
-		//
+		//Close Button
 		gbc.gridx = 1;
 		gbc.gridy = 8;
 		gbc.gridwidth = 1;
 		chalkboard.add(closeBtn,gbc);
-
 
 		//Window
 		myWindow.add(chalkboard);
