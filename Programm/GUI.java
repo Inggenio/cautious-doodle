@@ -1,11 +1,8 @@
 package Programm;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class GUI {
@@ -16,7 +13,7 @@ public class GUI {
 	GridBagLayout gLayout = new GridBagLayout();
 	GridBagConstraints gbc = new GridBagConstraints();
 
-	JButton openBtn = new JButton("Open Photos");
+	JButton openBtn = new JButton("Open Images");
 	JButton closeBtn = new JButton("Close");
 	JButton nLinksBtn = new JButton("<<");
 	JButton nRechtsBtn = new JButton(">>");
@@ -24,9 +21,7 @@ public class GUI {
 	JLabel lbl1 = new JLabel("Let's see your Images!");
 
 	//Image Box
-	String imgMessage = "";
-	JLabel image_lbl = new JLabel(imgMessage);
-	JLabel image_box = new JLabel();
+	static JLabel image_box = new JLabel();
 
 	File[] selectedFiles;
 	int currentImageIndex = 0;
@@ -54,6 +49,7 @@ public class GUI {
 		gbc.anchor = GridBagConstraints.NORTH;
 		chalkboard.add(lbl1, gbc);
 
+		//ButtonColor
 		Color buttonColor = Color.yellow;
 		nLinksBtn.setBackground(buttonColor);
 		nRechtsBtn.setBackground(buttonColor);
@@ -65,12 +61,6 @@ public class GUI {
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
 		chalkboard.add(openBtn, gbc);
-
-		//Image Label Name
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.gridwidth = 4;
-		chalkboard.add(image_lbl, gbc);
 
 		//Image
 		image_box.setPreferredSize(new Dimension(500,700));
@@ -131,7 +121,7 @@ public class GUI {
 				selectedFiles = chooser.getSelectedFiles();
 				currentImageIndex = 0;
 				if(selectedFiles.length > 0){
-					showImage(selectedFiles[currentImageIndex]);
+					ImageOpener.showImage(selectedFiles[currentImageIndex]);
 				}
 			}
 
@@ -142,30 +132,17 @@ public class GUI {
 		nLinksBtn.addActionListener(e -> {
 			if ( selectedFiles != null && selectedFiles.length > 0) {
 				currentImageIndex = (currentImageIndex - 1 + selectedFiles.length) % selectedFiles.length;
-				showImage(selectedFiles[currentImageIndex]);
+				ImageOpener.showImage(selectedFiles[currentImageIndex]);
 			}
 		});
 
 		nRechtsBtn.addActionListener(e -> {
 			if( selectedFiles != null && selectedFiles.length > 0 ){
 				currentImageIndex = (currentImageIndex + 1) % selectedFiles.length;
-				showImage(selectedFiles[currentImageIndex]);
+				ImageOpener.showImage(selectedFiles[currentImageIndex]);
 			}
 		});
 		closeBtn.addActionListener(e -> System.exit(0));
 	}
-	private void showImage(File imageFile){
-		try{
-			BufferedImage image = ImageIO.read(imageFile);
-			Image tmp = image.getScaledInstance(600,-1,Image.SCALE_SMOOTH);
-			BufferedImage img = new BufferedImage(tmp.getWidth(null),
-					tmp.getHeight(null),
-					BufferedImage.TYPE_INT_ARGB);
-			img.getGraphics().drawImage(tmp,0,0,null);
-			image_box.setIcon(new ImageIcon(img));
-			imgMessage = "File(s):" + imageFile+ "opened";
-		} catch (Exception c){
-			JOptionPane.showMessageDialog(null, "ERROR\n" + c);
-		}
-	}
+
 }
