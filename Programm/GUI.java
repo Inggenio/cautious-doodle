@@ -109,36 +109,33 @@ public class GUI {
 		myWindow.setVisible(true);
 		myWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		ActionListener imageOpener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//File Opener
-				JFileChooser chooser = new JFileChooser("Choose an Image");
-				//Filter
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files","jpg","png","tif","bmp","jpeg");
-				chooser.addChoosableFileFilter(filter);
-				chooser.setFileFilter(filter);
+		ActionListener imageOpener = e -> {
+			//File Opener
+			JFileChooser chooser = new JFileChooser("Choose an Image");
+			//Filter
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files","jpg","png","tif","bmp","jpeg");
+			chooser.addChoosableFileFilter(filter);
+			chooser.setFileFilter(filter);
 
-				//Chooser Set
-				chooser.setDialogType(JFileChooser.CUSTOM_DIALOG);
-				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				chooser.setMultiSelectionEnabled(true);
-				chooser.setFileHidingEnabled(false);
+			//Chooser Set
+			chooser.setDialogType(JFileChooser.CUSTOM_DIALOG);
+			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			chooser.setMultiSelectionEnabled(true);
+			chooser.setFileHidingEnabled(false);
 
-				chooser.setVisible(true);
-				int result = chooser.showOpenDialog(null);
+			chooser.setVisible(true);
+			int result = chooser.showOpenDialog(null);
 
-				if(result == JFileChooser.APPROVE_OPTION){
-					// File imageFile = chooser.getSelectedFile(); one File
-					selectedFiles = chooser.getSelectedFiles();
-					currentImageIndex = 0;
-					if(selectedFiles.length > 0){
-						showImage(selectedFiles[currentImageIndex]);
-					}
+			if(result == JFileChooser.APPROVE_OPTION){
+				// File imageFile = chooser.getSelectedFile(); one File
+				selectedFiles = chooser.getSelectedFiles();
+				currentImageIndex = 0;
+				if(selectedFiles.length > 0){
+					showImage(selectedFiles[currentImageIndex]);
 				}
-
-				chooser.setVisible(false);
 			}
+
+			chooser.setVisible(false);
 		};
 		openBtn.addActionListener(imageOpener);
 
